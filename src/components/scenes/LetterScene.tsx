@@ -74,15 +74,15 @@ export const LetterScene = () => {
   const isEnvelopeOpen = letterLineIndex > 0;
 
   return (
-    <group position={[0, 0, 0]}>
+    <group position={[0, -0.6, 0]}>
       {/* Intimate Dark Atmosphere Lighting */}
       <ambientLight intensity={0.15} color="#1e1b4b" />
 
       {/* Focused Golden Spotlight */}
       <spotLight
         position={[0, 4.5, 2.5]}
-        target-position={[0, 0.9, 0]}
-        intensity={3.5}
+        target-position={[0, 0.2, 0]}
+        intensity={3.0}
         color="#fef3c7"
         angle={0.65}
         penumbra={0.8}
@@ -93,12 +93,12 @@ export const LetterScene = () => {
       <pointLight position={[2, 2, -2]} intensity={0.8} color="#a5b4fc" />
 
       {/* Antique Wooden Table Surface */}
-      <mesh position={[0, 0.1, 0]} receiveShadow>
-        <cylinderGeometry args={[2.2, 2.4, 0.2, 32]} />
+      <mesh position={[0, -0.05, 0]} receiveShadow>
+        <cylinderGeometry args={[2.5, 2.7, 0.2, 32]} />
         <meshStandardMaterial
-          color="#382212"
-          roughness={0.75}
-          metalness={0.1}
+          color="#29180c"
+          roughness={0.8}
+          metalness={0.08}
         />
       </mesh>
 

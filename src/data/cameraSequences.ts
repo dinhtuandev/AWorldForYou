@@ -13,10 +13,9 @@ export const cameraSequences: Record<string, CameraSequence> = {
   'intro-to-world': {
     id: 'intro-to-world',
     keyframes: [
-      { position: [0, 2, 2], target: [0, 0, 0], duration: 0 },
-      { position: [0, 3, -5], target: [0, 1, -10], duration: 3.0, ease: 'power3.inOut' },
-      { position: [8, 6, 12], target: [0, 2, 0], duration: 4.0, ease: 'power2.out' },
-      { position: [6, 4, 10], target: [0, 1.5, 0], duration: 2.0, ease: 'power2.out' },
+      { position: [0, 10, 16], target: [0, 1, 0], duration: 0 },
+      { position: [8, 9, 13], target: [0, 0.8, 0], duration: 3.5, ease: 'power2.inOut' },
+      { position: [6.8, 6.2, 8.8], target: [0, 0.7, 0], duration: 2.5, ease: 'power2.out' },
     ],
   },
 
@@ -120,24 +119,23 @@ export const cameraSequences: Record<string, CameraSequence> = {
   'letter-approach': {
     id: 'letter-approach',
     keyframes: [
-      { position: [0, 1.5, 3], target: [0, 1, 0], duration: 0 },
-      { position: [0, 1.2, 1.2], target: [0, 1, 0], duration: 3.5, ease: 'power2.inOut' },
-      { position: [0, 1.1, 0.8], target: [0, 1, 0], duration: 2.0, ease: 'power2.out' },
+      { position: [0, 3.2, 4.5], target: [0, 0.6, 0], duration: 0 },
+      { position: [0, 2.3, 3.4], target: [0, 0.5, 0], duration: 3.0, ease: 'power2.inOut' },
     ],
   },
 
   'birthday-reveal': {
     id: 'birthday-reveal',
     keyframes: [
-      { position: [0, 2, 4], target: [0, 1, 0], duration: 0 },
-      { position: [0, 1.8, 2.5], target: [0, 1.2, 0], duration: 3.0, ease: 'power2.out' },
+      { position: [0, 2.5, 4.5], target: [0, 1, 0], duration: 0 },
+      { position: [0, 2.0, 3.0], target: [0, 1.1, 0], duration: 3.0, ease: 'power2.out' },
     ],
   },
 
   'birthday-pullback': {
     id: 'birthday-pullback',
     keyframes: [
-      { position: [0, 1.8, 2.5], target: [0, 1.2, 0], duration: 0 },
+      { position: [0, 2.0, 3.0], target: [0, 1.1, 0], duration: 0 },
       { position: [0, 8, 15], target: [0, 2, 0], duration: 5.0, ease: 'power2.inOut' },
     ],
   },
@@ -153,17 +151,17 @@ export const cameraSequences: Record<string, CameraSequence> = {
   'final-rise': {
     id: 'final-rise',
     keyframes: [
-      { position: [6, 4, 10], target: [0, 1, 0], duration: 0 },
-      { position: [0, 14, 12], target: [0, 0, 0], duration: 7.0, ease: 'power2.inOut' },
-      { position: [0, 8, 5], target: [0, 1, 0], duration: 4.0, ease: 'power2.out' },
+      { position: [6.8, 6.2, 8.8], target: [0, 0.7, 0], duration: 0 },
+      { position: [0, 8.5, 12.5], target: [0, 5.5, 0], duration: 5.5, ease: 'power2.inOut' },
+      { position: [0, 7.5, 10.0], target: [0, 5.8, 0], duration: 3.0, ease: 'power2.out' },
     ],
   },
 
   'final-heart-focus': {
     id: 'final-heart-focus',
     keyframes: [
-      { position: [0, 8, 5], target: [0, 1, 0], duration: 0 },
-      { position: [0, 3, 4], target: [0, 1.5, 0], duration: 3.0, ease: 'power2.inOut' },
+      { position: [0, 7.5, 10.0], target: [0, 5.8, 0], duration: 0 },
+      { position: [0, 6.5, 7.5], target: [0, 5.8, 0], duration: 3.0, ease: 'power2.inOut' },
     ],
   },
 };

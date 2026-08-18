@@ -103,13 +103,13 @@ export const FinalOverlay = () => {
               animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               exit={{ opacity: 0, y: -20, filter: 'blur(6px)' }}
               transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-              className="max-w-2xl w-[90vw] px-4 sm:px-6 py-6"
+              className="max-w-2xl w-[90vw] px-8 py-7 text-center rounded-3xl border border-rose-500/30 bg-neutral-950/80 backdrop-blur-xl shadow-2xl shadow-neutral-950/90"
             >
               <p
-                className={`font-light leading-relaxed tracking-wide text-rose-50/95 font-serif drop-shadow-lg ${
+                className={`font-light leading-relaxed tracking-wide text-rose-50 font-serif drop-shadow-lg ${
                   stepIndex === lines.length - 1
-                    ? 'text-[clamp(1.6rem,4.8vw,3rem)] text-rose-100'
-                    : 'text-[clamp(1.15rem,3.8vw,2.25rem)]'
+                    ? 'text-[clamp(1.5rem,4.5vw,2.8rem)] text-rose-100'
+                    : 'text-[clamp(1.15rem,3.8vw,2.2rem)]'
                 }`}
               >
                 "{lines[stepIndex]}"

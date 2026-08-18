@@ -196,9 +196,9 @@ export const LetterOverlay = () => {
               animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               exit={{ opacity: 0, y: -20, filter: 'blur(6px)' }}
               transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-              className="max-w-2xl w-[90vw] px-4 py-6 text-center"
+              className="max-w-2xl w-[90vw] px-8 py-7 text-center rounded-3xl border border-amber-400/30 bg-neutral-950/80 backdrop-blur-xl shadow-2xl shadow-neutral-950/90"
             >
-              <p className="text-[clamp(1.15rem,3.8vw,2.2rem)] font-light leading-relaxed tracking-wide text-amber-50/95 font-serif drop-shadow-md">
+              <p className="text-[clamp(1.15rem,3.8vw,2.1rem)] font-light leading-relaxed tracking-wide text-amber-50 font-serif drop-shadow-md">
                 "{currentLine}"
               </p>
             </motion.div>

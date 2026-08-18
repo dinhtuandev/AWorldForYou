@@ -11,15 +11,18 @@ export interface MemoryPortalProps {
   onTransitionEnd?: () => void;
 }
 
-// Custom GLSL Portal Shader
+// Advanced Cosmic Nebula Spiral Portal Shader
 const portalVertexShader = `
   varying vec2 vUv;
   varying vec3 vPosition;
+  varying vec3 vWorldPosition;
 
   void main() {
     vUv = uv;
     vPosition = position;
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    vec4 worldPos = modelMatrix * vec4(position, 1.0);
+    vWorldPosition = worldPos.xyz;
+    gl_Position = projectionMatrix * viewMatrix * worldPos;
   }
 `;
 
@@ -28,20 +31,21 @@ const portalFragmentShader = `
   uniform float uProgress;
   uniform vec3 uColorInner;
   uniform vec3 uColorOuter;
+  uniform vec3 uColorCore;
   uniform float uNoiseIntensity;
 
   varying vec2 vUv;
   varying vec3 vPosition;
+  varying vec3 vWorldPosition;
 
-  // Simplex 2D noise
+  // 2D Simplex noise
   vec3 permute(vec3 x) { return mod(((x*34.0)+1.0)*x, 289.0); }
   float snoise(vec2 v){
     const vec4 C = vec4(0.211324865405187, 0.366025403784439,
              -0.577350269189626, 0.024390243902439);
     vec2 i  = floor(v + dot(v, C.yy) );
     vec2 x0 = v -   i + dot(i, C.xx);
-    vec2 i1;
-    i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+    vec2 i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
     vec4 x12 = x0.xyxy + C.xxzz;
     x12.xy -= i1;
     i = mod(i, 289.0);
@@ -64,28 +68,40 @@ const portalFragmentShader = `
 
   void main() {
     vec2 centeredUv = vUv - vec2(0.5);
-    float dist = length(centeredUv);
+    float dist = length(centeredUv) * 2.0; // 0 at center, 1 at edge
     float angle = atan(centeredUv.y, centeredUv.x);
 
-    // Swirl noise
-    float noise = snoise(vec2(dist * 5.0 - uTime * 0.8, angle * 2.0 + uTime * 0.5)) * uNoiseIntensity;
-    float dynamicDist = dist + noise * 0.08;
+    // Multi-octave logarithmic spiral arms
+    float spiral = angle * 3.0 + dist * 6.0 - uTime * 2.2;
+    float noise1 = snoise(vec2(dist * 3.0 - uTime * 0.8, spiral * 0.5)) * uNoiseIntensity;
+    float noise2 = snoise(vec2(dist * 6.0 + uTime * 1.2, angle * 4.0 - uTime * 1.5)) * (uNoiseIntensity * 0.5);
 
-    // Outer edge softness driven by uProgress
-    float portalRadius = smoothstep(0.0, 1.0, uProgress) * 0.75;
-    float edgeWidth = 0.15;
-    float mask = smoothstep(portalRadius, portalRadius - edgeWidth, dynamicDist);
+    float combinedDist = dist + noise1 * 0.18 + noise2 * 0.08;
 
-    // Chromatic rim glow
-    float rim = smoothstep(portalRadius - edgeWidth, portalRadius, dynamicDist) * mask;
+    // Organic non-circular portal threshold driven by progress
+    float portalExpansion = smoothstep(0.0, 0.85, uProgress) * 1.35;
+    float portalAlpha = smoothstep(portalExpansion + 0.35, portalExpansion - 0.25, combinedDist);
 
-    vec3 color = mix(uColorInner, uColorOuter, dynamicDist * 1.8);
-    color += rim * vec3(1.0, 0.95, 0.8) * 1.5;
+    // Dynamic color gradient from radiant starlight core to outer nebula flare
+    vec3 color = mix(uColorCore, uColorInner, smoothstep(0.0, 0.45, combinedDist));
+    color = mix(color, uColorOuter, smoothstep(0.35, 1.1, combinedDist));
 
-    // Fade out as progress approaches completion or 0
-    float alpha = mask * (1.0 - smoothstep(0.85, 1.0, uProgress));
+    // Chromatic spiral energy filaments
+    float filaments = pow(max(0.0, sin(spiral * 2.0 + noise1 * 4.0)), 3.0) * 1.8;
+    color += filaments * uColorInner * (1.0 - smoothstep(0.2, 0.9, combinedDist));
 
-    gl_FragColor = vec4(color, alpha);
+    // Glowing starlight corona rim
+    float rimFlare = smoothstep(portalExpansion - 0.15, portalExpansion + 0.1, combinedDist) *
+                     smoothstep(portalExpansion + 0.35, portalExpansion + 0.05, combinedDist);
+    color += rimFlare * vec3(1.0, 0.95, 0.85) * 2.5;
+
+    // Master fade out as transition reaches climax
+    float fade = 1.0 - smoothstep(0.75, 1.0, uProgress);
+    float finalAlpha = portalAlpha * fade;
+
+    if (finalAlpha < 0.01) discard;
+
+    gl_FragColor = vec4(color, finalAlpha);
   }
 `;
 
@@ -95,60 +111,93 @@ export const MemoryPortal = ({ sceneType = 'beach', onTransitionEnd }: MemoryPor
   const isTransitioning = useExperienceStore((state) => state.isTransitioning);
   const setTransitioning = useExperienceStore((state) => state.setTransitioning);
 
-  const meshRef = useRef<THREE.Mesh>(null);
+  const portalMeshRef = useRef<THREE.Mesh>(null);
+  const outerRingRef = useRef<THREE.Mesh>(null);
   const particlesRef = useRef<THREE.Points>(null);
+
   const uniformsRef = useRef({
     uTime: { value: 0 },
     uProgress: { value: 0 },
-    uColorInner: { value: new THREE.Color('#ffffff') },
-    uColorOuter: { value: new THREE.Color('#38bdf8') },
-    uNoiseIntensity: { value: config.postProcessing === 'minimal' ? 0.3 : 0.8 },
+    uColorCore: { value: new THREE.Color('#ffffff') },
+    uColorInner: { value: new THREE.Color('#38bdf8') },
+    uColorOuter: { value: new THREE.Color('#0284c7') },
+    uNoiseIntensity: { value: config.postProcessing === 'minimal' ? 0.4 : 0.85 },
   });
 
-  const portalColors = useMemo(() => {
+  const portalPalette = useMemo(() => {
     switch (sceneType) {
       case 'beach':
-        return { inner: '#fff7ed', outer: '#f97316' };
+        return {
+          core: '#ffffff',
+          inner: '#fde047',
+          outer: '#ea580c',
+          ambient: '#fb923c',
+        };
       case 'cafe':
-        return { inner: '#fffbeb', outer: '#d97706' };
+        return {
+          core: '#fffbeb',
+          inner: '#f59e0b',
+          outer: '#b45309',
+          ambient: '#d97706',
+        };
       case 'nightWalk':
-        return { inner: '#e0e7ff', outer: '#6366f1' };
+        return {
+          core: '#ffffff',
+          inner: '#818cf8',
+          outer: '#4338ca',
+          ambient: '#6366f1',
+        };
       case 'firstMeeting':
-        return { inner: '#fdf4ff', outer: '#ec4899' };
+        return {
+          core: '#ffffff',
+          inner: '#f472b6',
+          outer: '#9333ea',
+          ambient: '#ec4899',
+        };
       default:
-        return { inner: '#ffffff', outer: '#38bdf8' };
+        return {
+          core: '#ffffff',
+          inner: '#38bdf8',
+          outer: '#0284c7',
+          ambient: '#0ea5e9',
+        };
     }
   }, [sceneType]);
 
   useEffect(() => {
-    uniformsRef.current.uColorInner.value.set(portalColors.inner);
-    uniformsRef.current.uColorOuter.value.set(portalColors.outer);
-  }, [portalColors]);
+    uniformsRef.current.uColorCore.value.set(portalPalette.core);
+    uniformsRef.current.uColorInner.value.set(portalPalette.inner);
+    uniformsRef.current.uColorOuter.value.set(portalPalette.outer);
+  }, [portalPalette]);
 
-  // Swirling portal particles
-  const particleCount = Math.max(15, Math.floor(60 * config.particleDensity));
+  // 120 Spiraling Stardust Particles
+  const particleCount = Math.max(30, Math.floor(120 * config.particleDensity));
   const particleGeo = useMemo(() => {
     const geo = new THREE.BufferGeometry();
     const positions = new Float32Array(particleCount * 3);
     const scales = new Float32Array(particleCount);
     const angles = new Float32Array(particleCount);
     const radii = new Float32Array(particleCount);
+    const zSpeeds = new Float32Array(particleCount);
 
     for (let i = 0; i < particleCount; i++) {
       const angle = Math.random() * Math.PI * 2;
-      const radius = 0.5 + Math.random() * 1.5;
+      const radius = 0.3 + Math.random() * 2.2;
+      const z = (Math.random() - 0.5) * 1.5;
+
       positions[i * 3] = Math.cos(angle) * radius;
       positions[i * 3 + 1] = Math.sin(angle) * radius;
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 0.5;
+      positions[i * 3 + 2] = z;
 
-      scales[i] = Math.random() * 0.05 + 0.02;
+      scales[i] = Math.random() * 0.08 + 0.03;
       angles[i] = angle;
       radii[i] = radius;
+      zSpeeds[i] = Math.random() * 0.8 + 0.4;
     }
 
     geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     geo.setAttribute('scale', new THREE.BufferAttribute(scales, 1));
-    return { geo, angles, radii };
+    return { geo, angles, radii, zSpeeds };
   }, [particleCount]);
 
   // Entrance portal expansion animation
@@ -164,7 +213,7 @@ export const MemoryPortal = ({ sceneType = 'beach', onTransitionEnd }: MemoryPor
 
     tl.to(uniformsRef.current.uProgress, {
       value: 1.0,
-      duration: 1.8,
+      duration: 2.2,
       ease: 'power2.inOut',
     });
 
@@ -176,33 +225,48 @@ export const MemoryPortal = ({ sceneType = 'beach', onTransitionEnd }: MemoryPor
   useFrame((_, delta) => {
     uniformsRef.current.uTime.value += delta;
 
-    // Attach portal mesh just in front of camera
-    if (meshRef.current) {
-      meshRef.current.position.copy(camera.position);
-      meshRef.current.quaternion.copy(camera.quaternion);
-      meshRef.current.translateZ(-2.0);
+    // Attach portal smoothly in front of camera
+    if (portalMeshRef.current) {
+      portalMeshRef.current.position.copy(camera.position);
+      portalMeshRef.current.quaternion.copy(camera.quaternion);
+      portalMeshRef.current.translateZ(-1.8);
+      portalMeshRef.current.rotation.z += delta * 0.25;
     }
 
-    // Swirl particles around portal
+    if (outerRingRef.current) {
+      outerRingRef.current.position.copy(camera.position);
+      outerRingRef.current.quaternion.copy(camera.quaternion);
+      outerRingRef.current.translateZ(-1.9);
+      outerRingRef.current.rotation.z -= delta * 0.4;
+      const ringScale = 1.0 + uniformsRef.current.uProgress.value * 0.6;
+      outerRingRef.current.scale.set(ringScale, ringScale, ringScale);
+    }
+
+    // Swirl particles in 3D vortex towards camera
     if (particlesRef.current) {
       particlesRef.current.position.copy(camera.position);
       particlesRef.current.quaternion.copy(camera.quaternion);
-      particlesRef.current.translateZ(-2.2);
+      particlesRef.current.translateZ(-2.0);
 
       const positions = particleGeo.geo.attributes.position.array as Float32Array;
       const progress = uniformsRef.current.uProgress.value;
 
       for (let i = 0; i < particleCount; i++) {
-        particleGeo.angles[i] += delta * (1.5 + (i % 3) * 0.5);
-        const r = particleGeo.radii[i] * (0.8 + progress * 0.6);
+        particleGeo.angles[i] += delta * (2.2 + (i % 4) * 0.4);
+        const r = particleGeo.radii[i] * (0.6 + progress * 0.8);
         positions[i * 3] = Math.cos(particleGeo.angles[i]) * r;
         positions[i * 3 + 1] = Math.sin(particleGeo.angles[i]) * r;
+        // Move towards camera
+        positions[i * 3 + 2] += delta * particleGeo.zSpeeds[i] * 1.5;
+        if (positions[i * 3 + 2] > 1.2) {
+          positions[i * 3 + 2] = -1.5;
+        }
       }
       particleGeo.geo.attributes.position.needsUpdate = true;
     }
   });
 
-  const material = useMemo(
+  const portalMaterial = useMemo(
     () =>
       new THREE.ShaderMaterial({
         vertexShader: portalVertexShader,
@@ -218,22 +282,43 @@ export const MemoryPortal = ({ sceneType = 'beach', onTransitionEnd }: MemoryPor
 
   return (
     <group>
-      {/* Portal Shader Plane */}
-      <mesh ref={meshRef} material={material}>
-        <planeGeometry args={[4.2, 4.2, 32, 32]} />
+      {/* Dynamic Cosmic Portal Plane */}
+      <mesh ref={portalMeshRef} material={portalMaterial}>
+        <planeGeometry args={[5.2, 5.2, 48, 48]} />
       </mesh>
 
-      {/* Orbiting Stardust Particles */}
+      {/* Outer Ethereal Glowing Ring Flare */}
+      <mesh ref={outerRingRef}>
+        <ringGeometry args={[1.1, 1.35, 48]} />
+        <meshBasicMaterial
+          color={portalPalette.ambient}
+          transparent
+          opacity={isTransitioning ? 0.75 : 0.0}
+          blending={THREE.AdditiveBlending}
+          side={THREE.DoubleSide}
+          depthWrite={false}
+        />
+      </mesh>
+
+      {/* 3D Spiraling Stardust Particles */}
       <points ref={particlesRef} geometry={particleGeo.geo}>
         <pointsMaterial
-          size={0.06}
-          color={portalColors.outer}
+          size={0.08}
+          color={portalPalette.inner}
           transparent
-          opacity={isTransitioning ? 0.9 : 0.0}
+          opacity={isTransitioning ? 0.95 : 0.0}
           blending={THREE.AdditiveBlending}
           depthWrite={false}
         />
       </points>
+
+      {/* Point Light Flash */}
+      <pointLight
+        position={[camera.position.x, camera.position.y, camera.position.z]}
+        distance={6.0}
+        intensity={isTransitioning ? 3.5 : 0}
+        color={portalPalette.inner}
+      />
     </group>
   );
 };

@@ -38,11 +38,11 @@ export const WorldScene = () => {
         zoomSpeed={deviceInfo.isMobile ? 0.9 : 0.7}
         panSpeed={0.5}
         enablePan={!deviceInfo.isMobile} // Disable pan on mobile to avoid drifting
-        minDistance={4.5}
-        maxDistance={18}
-        maxPolarAngle={Math.PI / 2.15} // Prevents looking below terrain horizon
-        minPolarAngle={Math.PI / 6}    // Prevents looking directly top-down
-        target={[0, 1, 0]}
+        minDistance={5.5}
+        maxDistance={17}
+        maxPolarAngle={Math.PI / 2.5} // Prevents looking below terrain horizon, keeps scenic isometric view
+        minPolarAngle={Math.PI / 5.5}  // Prevents looking directly top-down
+        target={[0, 0.7, 0]}
         touches={{
           ONE: THREE.TOUCH.ROTATE,
           TWO: THREE.TOUCH.DOLLY_PAN,
