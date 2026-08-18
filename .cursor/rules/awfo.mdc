@@ -1,0 +1,48 @@
+---
+description: AWFO project rules for immersive 3D love experience
+globs:
+  - "**/*"
+alwaysApply: true
+---
+
+# AWFO — AWorldForYou
+
+Immersive cinematic 3D web experience. NOT a typical Valentine's website.
+
+## Architecture
+
+- Read `docs/01-experience-architecture.md` before adding scenes or state
+- All personal content in `src/data/experienceData.ts` only — never hardcode names/messages/images
+- `App.tsx` mounts `<Experience />` only — max 30 lines
+- Every scene registers via `SceneManager`, driven by `ExperiencePhase` enum
+
+## Creative Rules
+
+- NO generic pink romantic templates, floating heart spam, cheesy gradients
+- NO HTML modals for memories — use `MemoryPortal` + scene transition
+- NO "CLICK HERE" buttons — subtle glow/scale/light affordance only
+- NO autoplay audio before `userHasInteracted === true`
+- Visual hierarchy: composition → lighting → materials → camera → animation → post-processing
+
+## Code Rules
+
+- One milestone per session — do not implement multiple scenes at once
+- No file > 300 lines — split into sub-components
+- Scenes in `components/scenes/`, managers in `experience/`
+- Placeholder assets (colored meshes) until final GLB ready
+- TypeScript strict — types in `src/types/experience.types.ts`
+
+## Performance
+
+- Quality tiers: HIGH / MEDIUM / LOW via `useQualityTier`
+- Mobile: no WASD, touch orbit, reduced post-processing
+- Target 60fps desktop, 30fps stable mobile
+- Instancing for repeated objects (trees, flowers, fireflies)
+
+## Session Workflow
+
+1. Read assigned `docs/phases/phase-N-*.md`
+2. Implement acceptance criteria only
+3. Test with `npm run dev`
+4. Update `docs/TASKS-BREAKDOWN.md` checkbox
+5. Add Agent Notes to phase plan file
