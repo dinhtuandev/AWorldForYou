@@ -5,17 +5,17 @@ export const cameraSequences: Record<string, CameraSequence> = {
     id: 'intro-particle-reveal',
     keyframes: [
       { position: [0, 0, 8], target: [0, 0, 0], duration: 0 },
-      { position: [0, 0, 5], target: [0, 0, 0], duration: 4.0, ease: 'power2.inOut' },
-      { position: [0, 1, 3], target: [0, 0.5, -2], duration: 2.0, ease: 'power2.out' },
+      { position: [0, 0.5, 6], target: [0, 0, 0], duration: 3.5, ease: 'power2.inOut' },
+      { position: [0, 1.2, 5.5], target: [0, 0, 0], duration: 1.5, ease: 'power2.out' },
     ],
   },
 
   'intro-to-world': {
     id: 'intro-to-world',
     keyframes: [
-      { position: [0, 10, 16], target: [0, 1, 0], duration: 0 },
-      { position: [8, 9, 13], target: [0, 0.8, 0], duration: 3.5, ease: 'power2.inOut' },
-      { position: [6.8, 6.2, 8.8], target: [0, 0.7, 0], duration: 2.5, ease: 'power2.out' },
+      { position: [0, 1.2, 5.5], target: [0, 0, 0], duration: 0 },
+      { position: [3.5, 8.5, 12.0], target: [0, 0.8, 0], duration: 2.8, ease: 'power2.inOut' },
+      { position: [6.8, 6.5, 9.0], target: [0, 0.7, 0], duration: 2.0, ease: 'power2.out' },
     ],
   },
 

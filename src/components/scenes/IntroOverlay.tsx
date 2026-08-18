@@ -41,7 +41,10 @@ export const IntroOverlay = () => {
     setIsEntering(true);
     markUserInteraction();
     audioManager.setInteracted(true);
-    audioManager.playLayer('intro');
+    audioManager.playLayer('world');
+
+    setTransitioning(true);
+    setPhase('world');
 
     // Trigger camera choreography sequence
     window.dispatchEvent(
@@ -49,13 +52,6 @@ export const IntroOverlay = () => {
         detail: { sequenceId: 'intro-to-world' },
       })
     );
-
-    setTransitioning(true);
-
-    // Switch phase to world to initiate world scene reveal
-    setTimeout(() => {
-      setPhase('world');
-    }, 400);
   }, [isEntering, markUserInteraction, setPhase, setTransitioning]);
 
   const handleKeyDown = useCallback(

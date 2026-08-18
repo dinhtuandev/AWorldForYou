@@ -18,11 +18,12 @@ import { TimelineMilestones } from '../world/TimelineMilestones';
 
 export const WorldScene = () => {
   const phase = useExperienceStore((state) => state.phase);
+  const isTransitioning = useExperienceStore((state) => state.isTransitioning);
   const { isPlaying } = useCameraDirector();
   const deviceInfo = useMemo(() => getDeviceInfo(), []);
 
   // Allow gentle camera orbiting only during interactive world phase when no camera sequence is playing
-  const isOrbitEnabled = phase === 'world' && !isPlaying;
+  const isOrbitEnabled = phase === 'world' && !isPlaying && !isTransitioning;
 
   return (
     <group position={[0, 0, 0]}>

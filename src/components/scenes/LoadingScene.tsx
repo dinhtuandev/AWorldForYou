@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useExperienceStore } from '../../experience/ExperienceState';
 import { useAssetProgress } from '../../hooks/useAssetProgress';
 import { experienceData } from '../../data/experienceData';
@@ -11,48 +11,52 @@ export const LoadingScene = () => {
   const [displayProgress, setDisplayProgress] = useState(0);
   const [isDone, setIsDone] = useState(false);
   const [isFadingOut, setIsFadingOut] = useState(false);
+  const hasTriggeredTransition = useRef(false);
 
   // Smoothly interpolate progress
   useEffect(() => {
     if (phase !== 'loading') return;
 
-    const targetProgress = Math.max(progress, isReady ? 1 : 0);
+    const targetProgress = isReady ? 1 : Math.max(progress, 0.2);
     const interval = setInterval(() => {
       setDisplayProgress((prev) => {
-        if (prev >= targetProgress) {
-          if (targetProgress >= 1 && !isDone) {
+        if (prev >= 0.99 || prev >= targetProgress) {
+          if (targetProgress >= 1) {
             setIsDone(true);
+            return 1;
           }
-          return targetProgress;
+          return prev;
         }
-        const step = Math.max(0.02, (targetProgress - prev) * 0.15);
+        const step = Math.max(0.04, (targetProgress - prev) * 0.2);
         const next = Math.min(targetProgress, prev + step);
-        if (next >= 1 && !isDone) {
+        if (next >= 0.99) {
           setIsDone(true);
+          return 1;
         }
         return next;
       });
     }, 30);
 
     return () => clearInterval(interval);
-  }, [progress, isReady, phase, isDone]);
+  }, [progress, isReady, phase]);
 
-  // Transition to intro after ready
+  // Guaranteed transition to intro
   useEffect(() => {
-    if (!isDone || phase !== 'loading') return;
+    if (!isDone || phase !== 'loading' || hasTriggeredTransition.current) return;
+    hasTriggeredTransition.current = true;
 
-    const readyTimer = setTimeout(() => {
+    const fadeTimer = setTimeout(() => {
       setIsFadingOut(true);
-    }, 700);
+    }, 400);
 
-    const transitionTimer = setTimeout(() => {
+    const doneTimer = setTimeout(() => {
       setPhase('intro');
       setIsFadingOut(false);
-    }, 1500);
+    }, 1000);
 
     return () => {
-      clearTimeout(readyTimer);
-      clearTimeout(transitionTimer);
+      clearTimeout(fadeTimer);
+      clearTimeout(doneTimer);
     };
   }, [isDone, phase, setPhase]);
 
@@ -66,7 +70,7 @@ export const LoadingScene = () => {
     <div
       role="status"
       aria-live="polite"
-      className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-neutral-950 text-neutral-100 transition-opacity duration-1000 select-none ${
+      className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-neutral-950 text-neutral-100 transition-opacity duration-700 select-none ${
         isFadingOut ? 'opacity-0 pointer-events-none' : 'opacity-100'
       }`}
     >

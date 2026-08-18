@@ -11,8 +11,8 @@ export const CinematicCamera = ({ children }: CinematicCameraProps) => {
   const { camera } = useThree();
 
   useEffect(() => {
-    camera.position.set(0, 2, 8);
-    camera.lookAt(0, 0, 0);
+    camera.position.set(6.8, 6.5, 9.0);
+    camera.lookAt(0, 0.8, 0);
   }, [camera]);
 
   return <CameraDirectorProvider>{children}</CameraDirectorProvider>;

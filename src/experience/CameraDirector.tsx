@@ -96,44 +96,28 @@ export const CameraDirectorProvider = ({ children }: CameraDirectorProviderProps
       const ease = kf.ease ?? 'power2.inOut';
       const duration = kf.duration;
 
-      const posProxy = {
-        x: camera.position.x,
-        y: camera.position.y,
-        z: camera.position.z,
-      };
-
-      const lookProxy = {
-        x: lookAtTargetRef.current.x,
-        y: lookAtTargetRef.current.y,
-        z: lookAtTargetRef.current.z,
-      };
-
+      // Animate camera position directly for seamless multi-keyframe chaining
       timeline.to(
-        posProxy,
+        camera.position,
         {
           x: targetPos[0],
           y: targetPos[1],
           z: targetPos[2],
           duration,
           ease,
-          onUpdate: () => {
-            camera.position.set(posProxy.x, posProxy.y, posProxy.z);
-          },
         },
         index === 0 ? 0 : '>'
       );
 
+      // Animate lookAt target in sync
       timeline.to(
-        lookProxy,
+        lookAtTargetRef.current,
         {
           x: targetLook[0],
           y: targetLook[1],
           z: targetLook[2],
           duration,
           ease,
-          onUpdate: () => {
-            lookAtTargetRef.current.set(lookProxy.x, lookProxy.y, lookProxy.z);
-          },
         },
         '<'
       );

@@ -70,7 +70,7 @@ export const Experience = () => {
   return (
     <div className="relative w-screen h-screen overflow-hidden bg-neutral-950 select-none">
       <Canvas
-        camera={{ position: [0, 2, 8], fov: isMobileDevice ? 75 : 60 }}
+        camera={{ position: [6.8, 6.5, 9.0], fov: isMobileDevice ? 75 : 60 }}
         dpr={[1, config.dprMax]}
         shadows={config.shadows}
         gl={{
