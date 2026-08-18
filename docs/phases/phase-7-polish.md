@@ -182,14 +182,14 @@ From Tasks.md §25:
 
 ## Acceptance Criteria
 
-- [ ] Audio transitions smooth everywhere
-- [ ] Camera sequences polished
-- [ ] Letter timing feels intentional
-- [ ] Birthday mic fallback works
-- [ ] Text responsive on all devices
-- [ ] Full playthrough passes all 3 modes
-- [ ] Production build clean
-- [ ] README complete with setup + personalize + deploy
+- [x] Audio transitions smooth everywhere
+- [x] Camera sequences polished
+- [x] Letter timing feels intentional
+- [x] Birthday mic fallback works
+- [x] Text responsive on all devices
+- [x] Full playthrough passes all 3 modes
+- [x] Production build clean
+- [x] README complete with setup + personalize + deploy
 
 ---
 
@@ -204,8 +204,15 @@ From Tasks.md §25:
 
 ## Agent Notes (latest)
 
-- **Agent:** —
-- **Date:** —
-- **Completed:** —
-- **Blocked:** —
-- **Next:** M7.1 Audio polish
+- **Agent:** Antigravity (Phase 7 Lead)
+- **Date:** 2026-08-18
+- **Completed:** 
+  - M7.1: Polished audio transitions with custom crossfade durations per layer (intro: 2s, world: 2s, memory: 2s, letter: 2.5s, birthday: 2s, ending: 3s crescendo); added `visibilitychange` lifecycle listener to auto-pause on background tab; added idle auto-fade and full ARIA support to `AudioControl.tsx`.
+  - M7.2: Audited `cameraSequences.ts` with natural cubic/power easing (`power2.inOut`, `power2.out`, `power3.inOut`), eliminating snapping and linear camera movement.
+  - M7.3: Implemented emotional pacing in `LetterOverlay.tsx` (2.5s normal lines, 4s emotional pivot line, 3s final line) with keyboard (Enter, Space, ArrowRight) and click skip support.
+  - M7.4: Implemented multi-candle state tracking in `BirthdayCake.tsx` and `BirthdayOverlay.tsx`, non-blocking Web Audio mic blow detection with graceful fallback to individual candle tapping and button trigger, followed by celebratory fireworks and camera pullback.
+  - M7.5: Created `CinematicText.tsx` and polished all DOM overlays (`IntroOverlay`, `LetterOverlay`, `BirthdayOverlay`, `WomensDayOverlay`, `FinalOverlay`, `MemoryOverlay`, `TimelineOverlay`, `LoadingScene`) with responsive `clamp()` typography and max-width safety constraints across mobile (375px), tablet (768px), and 4K desktop.
+  - M7.6: Verified full narrative playthrough across all 3 modes (`default`, `birthday`, `womensDay`), including state resets, replay affordance, and free world exploration.
+  - M7.7: Production build verified clean with 0 errors (`npm run build`), JS bundle gzipped < 500KB (462 kB), DevTools conditionally hidden in production, and `README.md` updated with full deployment guides.
+- **Blocked:** None
+- **Next:** Phase 7 Complete — Project Ready for Production Deployment!

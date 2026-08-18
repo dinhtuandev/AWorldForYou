@@ -140,14 +140,64 @@ export const assetManifest = {
 
 ---
 
-## Compression & Optimization
+## 3D Asset & Texture Optimization Pipeline
 
-| Type | Method |
-|------|--------|
-| GLB | Draco compression, meshopt |
-| Textures | WebP, max 2048, mipmaps |
-| Audio | MP3 128kbps + OGG fallback |
-| HDR | PMREM pre-converted env maps |
+### 1. GLB Mesh Optimization (`gltf-transform`)
+
+Run the following commands with [`@gltf-transform/cli`](https://gltf-transform.dev/) to optimize and compress 3D models before deploying them to `public/assets/models/`:
+
+```bash
+# Basic optimization: dedup vertices, weld, remove unused textures and nodes
+npx @gltf-transform/cli optimize input.glb output.glb
+
+# Draco compression (optimal for geometry-heavy assets):
+npx @gltf-transform/cli optimize input.glb output.glb --compress draco --draco.edgebreaker
+
+# Meshopt compression (fast decoding, ideal for mobile devices):
+npx @gltf-transform/cli optimize input.glb output.glb --compress meshopt
+
+# Texture resizing & WebP conversion within GLB:
+npx @gltf-transform/cli resize --width 1024 --height 1024 input.glb output.glb
+npx @gltf-transform/cli webp input.glb output.glb
+```
+
+### 2. Texture Optimization Guidelines
+
+- **Format**: WebP format with 80–85% quality or optimized JPEG.
+- **Max Dimensions**:
+  - Hero textures (e.g. background environment, HDRI): **2048×2048 max**
+  - Standard prop textures (house, pedestal, terrain): **1024×1024 max**
+  - Small details & normal maps (water normal, leaves, noise): **512×512 max**
+- **Color Profiles & Channels**: Channel-pack Roughness, Metalness, and Ambient Occlusion into a single `(R, G, B)` texture (ORM map) to minimize sampler count.
+
+### 3. Audio Asset Compression
+
+- **Encoding**: 128 kbps CBR MP3 or OGG Vorbis.
+- **Loudness**: Normalized to **-14 LUFS** with smooth 1.5s–2.5s crossfade envelopes.
+- **File size**: Under **1.5 MB** per loop track, under **200 KB** per sound effect.
+
+### 4. Polycount & Resource Budgets
+
+| Asset Type | Target Triangle Count | Max File Size | Load Strategy |
+|---|---|---|---|
+| World Terrain & Backdrop | 5,000 – 15,000 | < 2.0 MB | Preload |
+| House & Main Props | 3,000 – 8,000 | < 1.5 MB | Preload |
+| Instanced Elements (Tree, Flower, Lamp) | 200 – 800 per mesh | < 300 KB | Preload |
+| Memory Environments (each) | 10,000 – 25,000 | < 3.0 MB | Lazy Loaded |
+| Celebration Scenes (Cake, Heart) | 5,000 – 12,000 | < 2.0 MB | Lazy Loaded |
+| **Total Initial Preload Budget** | **< 100,000 triangles** | **< 12 MB** | **Loading Screen** |
+
+---
+
+## Compression & Optimization Summary
+
+| Asset Type | Compression Method | Target Format |
+|---|---|---|
+| 3D Meshes | `gltf-transform` Draco / Meshopt | `.glb` |
+| Textures | WebP / MozJPEG (85% quality) | `.webp`, `.jpg`, `.png` |
+| Audio | 128kbps MP3 / OGG (-14 LUFS) | `.mp3`, `.ogg` |
+| HDR Environment | Radiance HDR downsampled to 1K/2K | `.hdr` |
+
 
 ---
 

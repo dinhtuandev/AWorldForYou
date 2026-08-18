@@ -232,12 +232,12 @@ Only if `mode === 'womensDay'`.
 
 ## Acceptance Criteria (Full Phase)
 
-- [ ] All 11 scene components exist and mount correctly
-- [ ] Full flow: loading → intro → world → memory → world → letter → final
-- [ ] MemoryPortal transition feels immersive (not modal)
-- [ ] All text from experienceData
-- [ ] Mode routing works (birthday/womensDay/default)
-- [ ] No scene hardcodes personal content
+- [x] All 11 scene components exist and mount correctly
+- [x] Full flow: loading → intro → world → memory → world → letter → final
+- [x] MemoryPortal transition feels immersive (not modal)
+- [x] All text from experienceData
+- [x] Mode routing works (birthday/womensDay/default)
+- [x] No scene hardcodes personal content
 
 ---
 
@@ -250,9 +250,11 @@ Only if `mode === 'womensDay'`.
 ---
 
 ## Agent Notes (latest)
+ 
+- **Agent:** Phase 3D Subagent (Timeline, Letter, Modes & Final Scenes)
+- **Date:** 2026-08-18
+- **Completed:** Sub-Phase 3D (M3.13 TimelineOverlay with 3D luminous Catmull-Rom light paths & crystal milestone inspection; M3.14 LetterScene with vintage 3D Envelope opening, wax seal release, and sequential letter reading overlay with mode routing; M3.15 BirthdayScene with 3D tiered birthday cake, animated flickering candles, mic blow detection / tap fallback, extinguishing smoke & celebratory particle fireworks; M3.16 WomensDayScene with 3D garden terrace, interactive 3D blooming floral heart along parametric curve, and garden-rise top-down camera sequence; M3.17 FinalScene with celestial starry night transformation, procedural luminous glass CrystalHeart with dual-beat pulse and orbiting stardust, sequential finalScene lines, and experience replay). All 3D scenes and DOM overlays fully integrated into SceneManager and Experience with 0 TypeScript/build errors.
+- **Blocked:** None
+- **Next:** Phase 4 — Visual Systems (M4.1 PostProcessing, M4.2 Water shader, M4.3 Atmospheric fog shader, M4.4 Film grain, M4.5 ParticleSystem, M4.6 Glass/crystal heart shader enhancements, M4.7 Emissive materials)
 
-- **Agent:** —
-- **Date:** —
-- **Completed:** —
-- **Blocked:** —
-- **Next:** M3.1 LoadingScene
+

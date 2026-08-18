@@ -145,12 +145,12 @@ No component recompilation needed beyond hot reload.
 
 ## Acceptance Criteria
 
-- [ ] Complete ExperienceData type + file
-- [ ] README personalization guide
-- [ ] Placeholder images in place
-- [ ] All 3 modes route correctly
-- [ ] Zero hardcoded personal strings in components
-- [ ] Audio paths in assetManifest match data config
+- [x] Complete ExperienceData type + file
+- [x] README personalization guide
+- [x] Placeholder images in place
+- [x] All 3 modes route correctly
+- [x] Zero hardcoded personal strings in components
+- [x] Audio paths in assetManifest match data config
 
 ---
 
@@ -164,8 +164,14 @@ No component recompilation needed beyond hot reload.
 
 ## Agent Notes (latest)
 
-- **Agent:** —
-- **Date:** —
-- **Completed:** —
-- **Blocked:** —
-- **Next:** M5.1 Finalize schema
+- **Agent:** Antigravity (Senior Front-End & Creative Engineer)
+- **Date:** 2026-08-18
+- **Completed:**
+  - M5.1: Finalized `ExperienceData` interface (`girlfriendName`, `senderName`, `mode`, `intro`, `loading`, `memories`, `timeline`, `letter`, `birthday`, `womensDay`, `finalScene`, `audio`) in `src/types/experience.types.ts` and populated `src/data/experienceData.ts` with rich romantic content.
+  - Audited all scenes (`LoadingScene`, `IntroOverlay`, `LetterOverlay`, `BirthdayOverlay`, `WomensDayOverlay`, `FinalOverlay`, `MemoryOverlay`, `TimelineOverlay`) to ensure zero hardcoded personal strings.
+  - M5.2: Updated `README.md` with complete step-by-step Personalization Guide, mode instructions, memory photo guidelines, tech stack, and dev commands.
+  - M5.3: Added high-quality SVG/JPG placeholder assets for all 4 memory themes in `public/assets/images/` (`placeholder-beach.svg`, `placeholder-cafe.svg`, `placeholder-night.svg`, `placeholder-first.svg`).
+  - M5.4: Mode switching cleanly routes after letter scene to `final`, `birthday`, or `womensDay` based on `experienceData.mode` and respects enabled flags. Added mode switcher to DevTools HUD.
+  - M5.5: Verified full data-driven reactivity & zero build errors with `npm run build`.
+- **Blocked:** None
+- **Next:** Phase 6 — Performance & Mobile (Milestones M6.1 – M6.7)

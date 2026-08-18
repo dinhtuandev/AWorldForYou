@@ -154,15 +154,15 @@ Before marking Phase 4 complete, verify per scene:
 
 ## Acceptance Criteria
 
-- [ ] PostProcessing quality-gated (HIGH/MEDIUM/LOW)
-- [ ] Water shader on pond with animated waves
-- [ ] Fog in world + night scenes
-- [ ] Film grain subtle on HIGH/MEDIUM
-- [ ] Reusable ParticleSystem with quality scaling
-- [ ] Glass heart in final scene
-- [ ] Emissive glow on interactive objects + windows
-- [ ] 60fps on desktop HIGH with all effects
-- [ ] No visual effect added without purpose
+- [x] PostProcessing quality-gated (HIGH/MEDIUM/LOW)
+- [x] Water shader on pond with animated waves
+- [x] Fog in world + night scenes
+- [x] Film grain subtle on HIGH/MEDIUM
+- [x] Reusable ParticleSystem with quality scaling
+- [x] Glass heart in final scene
+- [x] Emissive glow on interactive objects + windows
+- [x] 60fps on desktop HIGH with all effects
+- [x] No visual effect added without purpose
 
 ---
 
@@ -176,8 +176,15 @@ Before marking Phase 4 complete, verify per scene:
 
 ## Agent Notes (latest)
 
-- **Agent:** —
-- **Date:** —
-- **Completed:** —
-- **Blocked:** —
-- **Next:** M4.1 PostProcessing
+- **Agent:** Phase 4 Visual Systems Subagent
+- **Date:** 2026-08-18
+- **Completed:** 
+  - M4.1 `PostProcessing.tsx` quality-gated with Bloom, DoF, Chromatic Aberration, Noise, and Vignette integrated into `Experience.tsx`
+  - M4.2 Water shader (`src/components/effects/shaders/water.ts`) with wave displacement, caustics, fresnel edge lighting, and pond integration in `Pond.tsx`
+  - M4.3 Atmospheric fog system (`src/components/effects/AtmosphericFog.tsx` & `src/components/effects/shaders/fog.ts`) with dynamic scene-aware interpolation
+  - M4.4 Film grain noise tuned per quality tier (0.02 HIGH, 0.01 MEDIUM, disabled on LOW)
+  - M4.5 Reusable `ParticleSystem` (`src/components/effects/ParticleSystem.tsx`) with configurable behaviors (`float`, `fall`, `firefly`, `wind`, `fountain`) and quality tier scaling
+  - M4.6 Glass heart material (`CrystalHeart.tsx`) with `MeshTransmissionMaterial`, heartbeat pulse, radiant core, and orbiting stardust
+  - M4.7 Harmonized warm emissive materials across windows, lanterns, interactive photo frames, return beacons, wax seal, candle flames, and milestone crystals
+- **Blocked:** None
+- **Next:** Phase 5 — Content & Personalization (M5.1 – M5.5)

@@ -286,17 +286,17 @@ export function Experience() {
 
 ## Acceptance Criteria
 
-- [ ] ExperienceState with all phases and actions
-- [ ] SceneManager routes by phase (placeholders OK)
-- [ ] CameraDirector plays GSAP sequences smoothly
-- [ ] cameraSequences.ts has intro + world sequences
-- [ ] InteractionManager raycast + click works
-- [ ] InteractiveObject with glow affordance
-- [ ] AudioManager layer switching (stub audio OK)
-- [ ] AssetManager progress tracking
-- [ ] useQualityTier auto-detects and applies DPR
-- [ ] DevTools phase jumper works
-- [ ] No TS errors, no console errors
+- [x] ExperienceState with all phases and actions
+- [x] SceneManager routes by phase (placeholders OK)
+- [x] CameraDirector plays GSAP sequences smoothly
+- [x] cameraSequences.ts has intro + world sequences
+- [x] InteractionManager raycast + click works
+- [x] InteractiveObject with glow affordance
+- [x] AudioManager layer switching (stub audio OK)
+- [x] AssetManager progress tracking
+- [x] useQualityTier auto-detects and applies DPR
+- [x] DevTools phase jumper works
+- [x] No TS errors, no console errors
 
 ---
 
@@ -311,8 +311,9 @@ export function Experience() {
 
 ## Agent Notes (latest)
 
-- **Agent:** —
-- **Date:** —
-- **Completed:** —
-- **Blocked:** —
-- **Next:** M2.1 ExperienceState
+- **Agent:** Antigravity (Subagent)
+- **Date:** 2026-08-18
+- **Completed:** M2.1 – M2.11 Core Systems implemented and verified with production build passing.
+- **Blocked:** None
+- **Next:** Phase 3 — Scenes (M3.1 LoadingScene & IntroScene)
+

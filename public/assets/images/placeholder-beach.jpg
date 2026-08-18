@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e1b4b" />
+      <stop offset="40%" stop-color="#7c2d12" />
+      <stop offset="70%" stop-color="#ea580c" />
+      <stop offset="100%" stop-color="#fde047" />
+    </linearGradient>
+    <linearGradient id="seaGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fdba74" />
+      <stop offset="30%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#082f49" />
+    </linearGradient>
+    <linearGradient id="sandGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fed7aa" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+    <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="1" />
+      <stop offset="30%" stop-color="#fef08a" stop-opacity="0.9" />
+      <stop offset="70%" stop-color="#f97316" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#f97316" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Sky -->
+  <rect width="800" height="400" fill="url(#skyGrad)" />
+
+  <!-- Sun & Glow -->
+  <circle cx="400" cy="330" r="140" fill="url(#sunGlow)" />
+  <circle cx="400" cy="330" r="45" fill="#fffbeb" />
+
+  <!-- Distant Clouds -->
+  <path d="M 100,280 Q 150,260 220,280 Q 280,270 340,285 L 340,320 L 100,320 Z" fill="#fdba74" opacity="0.4" />
+  <path d="M 460,290 Q 520,270 600,290 Q 680,275 750,295 L 750,320 L 460,320 Z" fill="#fdba74" opacity="0.4" />
+
+  <!-- Ocean -->
+  <rect y="360" width="800" height="120" fill="url(#seaGrad)" />
+
+  <!-- Sun reflection on water -->
+  <path d="M 385,360 L 415,360 L 440,460 L 360,460 Z" fill="#fef08a" opacity="0.4" />
+
+  <!-- Ocean waves highlights -->
+  <line x1="320" y1="380" x2="480" y2="380" stroke="#fef08a" stroke-width="2" opacity="0.6" stroke-linecap="round" />
+  <line x1="280" y1="400" x2="520" y2="400" stroke="#fef08a" stroke-width="2.5" opacity="0.5" stroke-linecap="round" />
+  <line x1="220" y1="425" x2="580" y2="425" stroke="#fed7aa" stroke-width="3" opacity="0.5" stroke-linecap="round" />
+  <line x1="160" y1="450" x2="640" y2="450" stroke="#fed7aa" stroke-width="3.5" opacity="0.4" stroke-linecap="round" />
+
+  <!-- Sandy Beach Shore -->
+  <path d="M 0,460 Q 200,450 400,470 T 800,455 L 800,600 L 0,600 Z" fill="url(#sandGrad)" />
+
+  <!-- Foam line -->
+  <path d="M 0,460 Q 200,450 400,470 T 800,455" stroke="#ffffff" stroke-width="4" fill="none" opacity="0.7" />
+
+  <!-- Label Overlay Card -->
+  <rect x="260" y="520" width="280" height="50" rx="25" fill="#0f172a" opacity="0.75" />
+  <text x="400" y="552" text-anchor="middle" fill="#fef3c7" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="300" letter-spacing="3">BEACH DAY MEMORY</text>
+</svg>

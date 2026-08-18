@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="cafeBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1c1917" />
+      <stop offset="50%" stop-color="#292524" />
+      <stop offset="100%" stop-color="#0c0a09" />
+    </linearGradient>
+    <radialGradient id="lampGlow" cx="50%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#fde047" stop-opacity="0.6" />
+      <stop offset="40%" stop-color="#ea580c" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="tableGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#78350f" />
+      <stop offset="100%" stop-color="#451a03" />
+    </linearGradient>
+  </defs>
+
+  <!-- Cafe Interior Background -->
+  <rect width="800" height="600" fill="url(#cafeBg)" />
+
+  <!-- Warm Pendant Light Glow -->
+  <circle cx="400" cy="180" r="280" fill="url(#lampGlow)" />
+
+  <!-- Rain Window Frame in Background -->
+  <rect x="80" y="80" width="220" height="260" rx="10" fill="#1e293b" opacity="0.6" stroke="#475569" stroke-width="4" />
+  <line x1="190" y1="80" x2="190" y2="340" stroke="#475569" stroke-width="3" />
+  <line x1="80" y1="210" x2="300" y2="210" stroke="#475569" stroke-width="3" />
+  <!-- Raindrops on glass -->
+  <line x1="120" y1="110" x2="115" y2="135" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round" opacity="0.6" />
+  <line x1="160" y1="140" x2="155" y2="170" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round" opacity="0.7" />
+  <line x1="240" y1="100" x2="235" y2="130" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round" opacity="0.5" />
+  <line x1="220" y1="230" x2="215" y2="260" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round" opacity="0.6" />
+
+  <!-- Warm Wooden Cafe Table -->
+  <polygon points="0,440 800,440 800,600 0,600" fill="url(#tableGrad)" />
+  <line x1="0" y1="440" x2="800" y2="440" stroke="#b45309" stroke-width="3" opacity="0.6" />
+
+  <!-- Hanging Pendant Lamp -->
+  <line x1="400" y1="0" x2="400" y2="140" stroke="#a1a1aa" stroke-width="2" />
+  <polygon points="360,180 440,180 415,140 385,140" fill="#d97706" />
+  <circle cx="400" cy="182" r="14" fill="#fef08a" />
+
+  <!-- Ceramic Coffee Cup & Saucer -->
+  <!-- Saucer -->
+  <ellipse cx="400" cy="470" rx="90" ry="24" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="2" />
+  <ellipse cx="400" cy="466" rx="60" ry="16" fill="#cbd5e1" opacity="0.5" />
+  <!-- Cup Body -->
+  <path d="M 345,410 C 345,465 455,465 455,410 Z" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2" />
+  <!-- Coffee Liquid Surface -->
+  <ellipse cx="400" cy="410" rx="55" ry="16" fill="#3f2314" />
+  <!-- Latte Art Heart -->
+  <path d="M 400,418 C 390,408 380,412 384,417 C 388,422 400,428 400,428 C 400,428 412,422 416,417 C 420,412 410,408 400,418 Z" fill="#fef3c7" opacity="0.85" />
+  <!-- Cup Handle -->
+  <path d="M 450,420 C 475,420 475,445 450,448" fill="none" stroke="#f8fafc" stroke-width="7" stroke-linecap="round" />
+
+  <!-- Rising Steam -->
+  <path d="M 390,390 Q 380,360 395,330 T 385,280" fill="none" stroke="#fed7aa" stroke-width="3" stroke-linecap="round" opacity="0.4" />
+  <path d="M 410,385 Q 425,355 410,325 T 418,275" fill="none" stroke="#fed7aa" stroke-width="3" stroke-linecap="round" opacity="0.35" />
+
+  <!-- Label Overlay Card -->
+  <rect x="260" y="525" width="280" height="48" rx="24" fill="#0f172a" opacity="0.75" />
+  <text x="400" y="555" text-anchor="middle" fill="#fed7aa" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="300" letter-spacing="3">WARM CAFE MEMORY</text>
+</svg>

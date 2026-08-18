@@ -206,15 +206,15 @@ npm run build  # Zero TS errors
 
 ## Acceptance Criteria
 
-- [ ] Vite + React + TS running
-- [ ] All dependencies installed
-- [ ] Folder structure matches architecture doc
-- [ ] Types file complete
-- [ ] experienceData.ts with placeholder content
-- [ ] assetManifest.ts with keys (empty paths OK)
-- [ ] App.tsx < 30 lines
-- [ ] Empty Canvas renders black screen
-- [ ] `npm run build` passes
+- [x] Vite + React + TS running
+- [x] All dependencies installed
+- [x] Folder structure matches architecture doc
+- [x] Types file complete
+- [x] experienceData.ts with placeholder content
+- [x] assetManifest.ts with keys (empty paths OK)
+- [x] App.tsx < 30 lines
+- [x] Empty Canvas renders black screen
+- [x] `npm run build` passes
 
 ---
 
@@ -229,8 +229,8 @@ npm run build  # Zero TS errors
 
 ## Agent Notes (latest)
 
-- **Agent:** —
-- **Date:** —
-- **Completed:** —
-- **Blocked:** —
-- **Next:** M1.1 Vite init
+- **Agent:** Antigravity (Phase 1 Subagent)
+- **Date:** 2026-08-18
+- **Completed:** M1.1 - M1.8 (Vite + React + TS, 3D & animation packages, full folder structure, experience.types.ts, experienceData.ts, assetManifest.ts, Experience.tsx, App.tsx, verified build)
+- **Blocked:** None
+- **Next:** Phase 2 — Core Systems (M2.1 - M2.11)
