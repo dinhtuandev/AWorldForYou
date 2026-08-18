@@ -47,6 +47,7 @@ export const LoadingScene = () => {
 
     const transitionTimer = setTimeout(() => {
       setPhase('intro');
+      setIsFadingOut(false);
     }, 1500);
 
     return () => {

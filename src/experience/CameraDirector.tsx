@@ -160,16 +160,27 @@ export const CameraDirectorProvider = ({ children }: CameraDirectorProviderProps
 
   useEffect(() => {
     const handleCustomEvent = (event: Event) => {
-      const customEvent = event as CustomEvent<{ sequenceId: string }>;
-      if (customEvent.detail?.sequenceId) {
-        playSequence(customEvent.detail.sequenceId);
+      const customEvent = event as CustomEvent<{
+        sequenceId?: string;
+        sequence?: CameraSequence;
+        options?: CameraDirectorPlayOptions;
+      }>;
+      const input = customEvent.detail?.sequence ?? customEvent.detail?.sequenceId;
+      if (input) {
+        playSequence(input, customEvent.detail?.options);
       }
     };
 
+    const handleStopEvent = () => {
+      stopSequence();
+    };
+
     window.addEventListener('awfo:play-camera-sequence', handleCustomEvent);
+    window.addEventListener('awfo:stop-camera-sequence', handleStopEvent);
 
     return () => {
       window.removeEventListener('awfo:play-camera-sequence', handleCustomEvent);
+      window.removeEventListener('awfo:stop-camera-sequence', handleStopEvent);
       if (activeTimelineRef.current) {
         activeTimelineRef.current.kill();
       }
@@ -191,10 +202,34 @@ export const CameraDirectorProvider = ({ children }: CameraDirectorProviderProps
   );
 };
 
-export const useCameraDirector = () => {
+export const useCameraDirector = (): CameraDirectorContextValue => {
   const context = useContext(CameraDirectorContext);
-  if (!context) {
-    throw new Error('useCameraDirector must be used within a CameraDirectorProvider');
+  if (context) {
+    return context;
   }
-  return context;
+
+  // Graceful event-based fallback for DOM overlays rendered outside Canvas
+  return {
+    playSequence: (sequenceInput, options) => {
+      if (typeof sequenceInput === 'string') {
+        window.dispatchEvent(
+          new CustomEvent('awfo:play-camera-sequence', {
+            detail: { sequenceId: sequenceInput, options },
+          })
+        );
+      } else {
+        window.dispatchEvent(
+          new CustomEvent('awfo:play-camera-sequence', {
+            detail: { sequence: sequenceInput, options },
+          })
+        );
+      }
+    },
+    stopSequence: () => {
+      window.dispatchEvent(new CustomEvent('awfo:stop-camera-sequence'));
+    },
+    isPlaying: false,
+    currentSequenceId: null,
+    lookAtTarget: new THREE.Vector3(0, 0, 0),
+  };
 };
