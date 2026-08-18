@@ -1,45 +1,55 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900">
   <defs>
-    <linearGradient id="beachSky" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="beachSky2" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#1e1b4b"/>
       <stop offset="35%" stop-color="#be185d"/>
-      <stop offset="65%" stop-color="#f97316"/>
-      <stop offset="90%" stop-color="#fef08a"/>
+      <stop offset="70%" stop-color="#f97316"/>
+      <stop offset="100%" stop-color="#fef08a"/>
     </linearGradient>
-    <linearGradient id="oceanGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#f97316"/>
-      <stop offset="30%" stop-color="#0369a1"/>
-      <stop offset="100%" stop-color="#082f49"/>
-    </linearGradient>
-    <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+    <radialGradient id="sunGlow2" cx="50%" cy="50%" r="50%">
       <stop offset="0%" stop-color="#ffffff"/>
       <stop offset="40%" stop-color="#fef08a"/>
       <stop offset="80%" stop-color="#f97316" stop-opacity="0.8"/>
       <stop offset="100%" stop-color="#f97316" stop-opacity="0"/>
     </radialGradient>
   </defs>
-  <rect width="1200" height="800" fill="url(#beachSky)"/>
+
+  <rect width="1200" height="900" fill="url(#beachSky2)"/>
+
   <!-- Sun -->
-  <circle cx="600" cy="420" r="140" fill="url(#sunGlow)"/>
-  <!-- Ocean -->
-  <rect x="0" y="440" width="1200" height="360" fill="url(#oceanGrad)"/>
-  <!-- Sun reflection on water -->
-  <ellipse cx="600" cy="500" rx="90" ry="12" fill="#fff" opacity="0.6"/>
-  <ellipse cx="600" cy="540" rx="140" ry="15" fill="#fef08a" opacity="0.5"/>
-  <ellipse cx="600" cy="590" rx="200" ry="18" fill="#f97316" opacity="0.4"/>
-  <ellipse cx="600" cy="650" rx="260" ry="22" fill="#fdba74" opacity="0.3"/>
-  <!-- Shore curve -->
-  <path d="M0 680 Q 400 620, 800 690 T 1200 660 L 1200 800 L 0 800 Z" fill="#78350f" opacity="0.85"/>
-  <path d="M0 720 Q 500 670, 1200 710 L 1200 800 L 0 800 Z" fill="#451a03"/>
-  <!-- Couple silhouette sitting on beach shore -->
-  <ellipse cx="780" cy="670" rx="14" ry="14" fill="#0f172a"/>
-  <ellipse cx="806" cy="672" rx="13" ry="13" fill="#0f172a"/>
-  <path d="M 765 720 Q 770 680 782 680 Q 795 680 798 720 Z" fill="#0f172a"/>
-  <path d="M 795 720 Q 800 683 808 683 Q 820 683 825 720 Z" fill="#0f172a"/>
-  <!-- Flying birds -->
-  <path d="M300 200 Q315 190 330 200 Q345 190 360 200 Q345 208 330 200 Q315 208 300 200 Z" fill="#0f172a" opacity="0.7"/>
-  <path d="M380 230 Q392 222 405 230 Q418 222 430 230 Q418 236 405 230 Q392 236 380 230 Z" fill="#0f172a" opacity="0.6"/>
-  <!-- Title Badge in bottom left -->
-  <rect x="50" y="50" width="300" height="60" rx="30" fill="rgba(15, 23, 42, 0.6)" stroke="rgba(253, 230, 138, 0.4)" stroke-width="1.5"/>
-  <text x="200" y="86" fill="#fef08a" font-family="serif" font-size="22" font-weight="300" text-anchor="middle" letter-spacing="3">BEACH MEMORY</text>
+  <circle cx="600" cy="460" r="160" fill="url(#sunGlow2)"/>
+
+  <!-- Ocean Waves -->
+  <rect x="0" y="500" width="1200" height="400" fill="#0369a1"/>
+  <ellipse cx="600" cy="560" rx="280" ry="25" fill="#fef08a" opacity="0.6"/>
+  <ellipse cx="600" cy="620" rx="380" ry="30" fill="#f97316" opacity="0.4"/>
+
+  <!-- Sandy Shoreline -->
+  <path d="M0 680 Q 400 620, 800 690 T 1200 660 L 1200 900 L 0 900 Z" fill="#78350f"/>
+  <path d="M0 730 Q 500 680, 1200 720 L 1200 900 L 0 900 Z" fill="#451a03"/>
+
+  <!-- Heart drawn in the sand with golden glow -->
+  <path d="M 600 780 C 600 760, 560 740, 540 760 C 510 790, 560 830, 600 850 C 640 830, 690 790, 660 760 C 640 740, 600 760, 600 780 Z" fill="none" stroke="#fef08a" stroke-width="4" opacity="0.85"/>
+
+  <!-- Couple Silhouette Leaning Together Smiling on the Shore -->
+  <!-- Man on left putting arm around her -->
+  <circle cx="490" cy="580" r="28" fill="#0f172a"/>
+  <path d="M 440 680 Q 460 610 490 610 Q 520 610 540 680 Z" fill="#0f172a"/>
+  <!-- Girlfriend with sundress and hair blowing in sea breeze -->
+  <circle cx="535" cy="590" r="25" fill="#0f172a"/>
+  <!-- Hair strands in wind -->
+  <path d="M 520 575 Q 560 560 580 590 Q 590 630 570 660 Z" fill="#0f172a"/>
+  <!-- Dress leaning into his shoulder -->
+  <path d="M 515 680 Q 530 615 545 615 Q 570 630 585 680 Z" fill="#0f172a"/>
+
+  <!-- Warm Sun Flare over couple -->
+  <circle cx="520" cy="610" r="80" fill="#fef08a" opacity="0.25" filter="blur(15px)"/>
+
+  <!-- Memory Card Border -->
+  <rect x="30" y="30" width="1140" height="840" rx="20" fill="none" stroke="rgba(253, 230, 138, 0.4)" stroke-width="2"/>
+  <rect x="42" y="42" width="1116" height="816" rx="14" fill="none" stroke="rgba(253, 230, 138, 0.2)" stroke-width="1"/>
+
+  <!-- Bottom Caption Badge -->
+  <rect x="360" y="780" width="480" height="70" rx="35" fill="rgba(15, 23, 42, 0.85)" stroke="rgba(253, 230, 138, 0.5)" stroke-width="1.5"/>
+  <text x="600" y="822" fill="#fef08a" font-family="serif" font-size="24" font-weight="300" text-anchor="middle" letter-spacing="3">BEACH DAY • SUMMER WITH YOU</text>
 </svg>

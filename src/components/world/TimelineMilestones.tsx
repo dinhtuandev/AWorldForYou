@@ -25,10 +25,10 @@ const MilestoneCrystal = ({ milestone, index }: MilestoneCrystalProps) => {
   useFrame(({ clock }) => {
     const elapsed = clock.getElapsedTime();
     if (crystalRef.current) {
-      crystalRef.current.rotation.y = elapsed * 0.6 + index;
-      crystalRef.current.rotation.x = Math.sin(elapsed * 0.5 + index) * 0.2;
+      crystalRef.current.rotation.y = elapsed * 0.7 + index;
+      crystalRef.current.rotation.x = Math.sin(elapsed * 0.6 + index) * 0.2;
       crystalRef.current.position.y =
-        milestone.worldPosition[1] + Math.sin(elapsed * 1.8 + index * 1.2) * 0.08;
+        milestone.worldPosition[1] + Math.sin(elapsed * 1.8 + index * 1.2) * 0.06;
     }
     if (ringRef.current) {
       ringRef.current.rotation.z = -elapsed * 0.8;
@@ -41,7 +41,7 @@ const MilestoneCrystal = ({ milestone, index }: MilestoneCrystalProps) => {
     const cameraSequence = createApproachSequence(
       `approach-${milestone.id}`,
       milestone.worldPosition,
-      [1.2, 0.8, 1.8]
+      [1.4, 1.0, 2.0]
     );
     playSequence(cameraSequence);
   };
@@ -55,47 +55,35 @@ const MilestoneCrystal = ({ milestone, index }: MilestoneCrystalProps) => {
       onInteract={handleInteract}
     >
       <group position={[0, 0, 0]}>
-        {/* Floating Glowing Octahedron Crystal */}
+        {/* Floating Glowing Octahedron Crystal Beacon */}
         <mesh ref={crystalRef} position={[0, 0, 0]}>
-          <octahedronGeometry args={[0.24, 0]} />
+          <octahedronGeometry args={[0.18, 0]} />
           <meshStandardMaterial
-            color={isSelected ? '#f472b6' : '#38bdf8'}
-            emissive={isSelected ? '#e11d48' : '#0284c7'}
-            emissiveIntensity={isSelected ? 3.0 : 1.8}
+            color={isSelected ? '#f43f5e' : '#fbbf24'}
+            emissive={isSelected ? '#e11d48' : '#d97706'}
+            emissiveIntensity={isSelected ? 3.2 : 2.0}
             roughness={0.1}
-            metalness={0.85}
+            metalness={0.8}
             transparent
-            opacity={0.92}
+            opacity={0.95}
           />
         </mesh>
 
         {/* Orbiting Resonant Ring */}
         <mesh ref={ringRef} position={[0, 0, 0]}>
-          <torusGeometry args={[0.38, 0.012, 16, 32]} />
+          <torusGeometry args={[0.3, 0.01, 16, 32]} />
           <meshBasicMaterial
-            color={isSelected ? '#fda4af' : '#7dd3fc'}
+            color={isSelected ? '#fda4af' : '#fef08a'}
             transparent
-            opacity={0.65}
-          />
-        </mesh>
-
-        {/* Faint vertical light pillar base */}
-        <mesh position={[0, -milestone.worldPosition[1] / 2, 0]}>
-          <cylinderGeometry
-            args={[0.02, 0.02, milestone.worldPosition[1], 8]}
-          />
-          <meshBasicMaterial
-            color={isSelected ? '#fb7185' : '#7dd3fc'}
-            transparent
-            opacity={0.3}
+            opacity={0.7}
           />
         </mesh>
 
         {/* Soft point glow */}
         <pointLight
-          color={isSelected ? '#f43f5e' : '#38bdf8'}
-          distance={2.8}
-          intensity={isSelected ? 2.2 : 0.9}
+          color={isSelected ? '#f43f5e' : '#f59e0b'}
+          distance={2.5}
+          intensity={isSelected ? 2.2 : 1.2}
         />
       </group>
     </InteractiveObject>
@@ -104,9 +92,10 @@ const MilestoneCrystal = ({ milestone, index }: MilestoneCrystalProps) => {
 
 const LuminousLightPath = () => {
   const curve = useMemo(() => {
-    const points = experienceData.timeline.map(
-      (m) => new THREE.Vector3(...m.worldPosition)
-    );
+    const points = [
+      ...experienceData.timeline.map((m) => new THREE.Vector3(m.worldPosition[0], 0.25, m.worldPosition[2])),
+      new THREE.Vector3(1.6, 0.25, 1.6), // Leads to Letter Pedestal
+    ];
     return new THREE.CatmullRomCurve3(points, false, 'catmullrom', 0.2);
   }, []);
 
@@ -118,19 +107,19 @@ const LuminousLightPath = () => {
 
   useFrame(({ clock }) => {
     if (!pulseBeadRef.current) return;
-    const progress = (clock.getElapsedTime() * 0.25) % 1.0;
+    const progress = (clock.getElapsedTime() * 0.15) % 1.0;
     const pos = curve.getPoint(progress);
     pulseBeadRef.current.position.copy(pos);
   });
 
   return (
-    <group>
-      {/* Luminous Glowing Tube */}
+    <group position={[0, 0, 0]}>
+      {/* Luminous Glowing Tube Trail across the Island */}
       <mesh geometry={tubeGeometry}>
         <meshBasicMaterial
-          color="#38bdf8"
+          color="#fde047"
           transparent
-          opacity={0.4}
+          opacity={0.35}
         />
       </mesh>
 
@@ -138,7 +127,7 @@ const LuminousLightPath = () => {
       <mesh ref={pulseBeadRef}>
         <sphereGeometry args={[0.06, 16, 16]} />
         <meshBasicMaterial color="#ffffff" />
-        <pointLight color="#7dd3fc" intensity={1.5} distance={1.2} />
+        <pointLight color="#fef08a" intensity={1.8} distance={1.8} />
       </mesh>
     </group>
   );

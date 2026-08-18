@@ -1,51 +1,62 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900">
   <defs>
-    <linearGradient id="cafeBg" x1="0" y1="0" x2="1" y2="1">
+    <linearGradient id="cafeBg2" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#18181b"/>
-      <stop offset="50%" stop-color="#27272a"/>
-      <stop offset="100%" stop-color="#09090b"/>
+      <stop offset="60%" stop-color="#27272a"/>
+      <stop offset="100%" stop-color="#0c0a09"/>
     </linearGradient>
-    <radialGradient id="lampGlow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#fef08a" stop-opacity="0.9"/>
+    <radialGradient id="lampGlow2" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fef08a" stop-opacity="0.95"/>
       <stop offset="50%" stop-color="#f59e0b" stop-opacity="0.4"/>
       <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="windowNight" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#0f172a"/>
-      <stop offset="100%" stop-color="#1e1b4b"/>
-    </linearGradient>
   </defs>
-  <rect width="1200" height="800" fill="url(#cafeBg)"/>
-  <!-- Window to rainy street -->
-  <rect x="650" y="100" width="480" height="420" rx="12" fill="url(#windowNight)" stroke="#3f3f46" stroke-width="8"/>
-  <!-- Rain streaks & street lights outside -->
-  <circle cx="800" cy="240" r="28" fill="#fbbf24" opacity="0.3" filter="blur(8px)"/>
-  <circle cx="980" cy="320" r="35" fill="#f43f5e" opacity="0.25" filter="blur(10px)"/>
-  <circle cx="720" cy="380" r="22" fill="#38bdf8" opacity="0.3" filter="blur(6px)"/>
-  <!-- Rain lines -->
-  <path d="M 700 120 L 680 180 M 760 140 L 740 220 M 850 110 L 830 200 M 920 160 L 900 240 M 1020 130 L 1000 210 M 740 300 L 720 400 M 890 280 L 870 380 M 980 320 L 960 420" stroke="#94a3b8" stroke-width="1.5" opacity="0.4"/>
-  <!-- Window frame cross -->
-  <line x1="890" y1="100" x2="890" y2="520" stroke="#3f3f46" stroke-width="6"/>
-  <line x1="650" y1="310" x2="1130" y2="310" stroke="#3f3f46" stroke-width="6"/>
-  <!-- Warm Pendant Lamp -->
-  <circle cx="340" cy="180" r="160" fill="url(#lampGlow)"/>
-  <path d="M340 0 L 340 100" stroke="#a1a1aa" stroke-width="3"/>
-  <path d="M290 130 Q 340 80 390 130 Z" fill="#71717a"/>
+
+  <rect width="1200" height="900" fill="url(#cafeBg2)"/>
+
+  <!-- Rainy Window with bokeh street lights -->
+  <rect x="680" y="100" width="460" height="480" rx="16" fill="#0f172a" stroke="#44403c" stroke-width="8"/>
+  <circle cx="820" cy="260" r="35" fill="#fbbf24" opacity="0.3" filter="blur(10px)"/>
+  <circle cx="980" cy="340" r="45" fill="#f43f5e" opacity="0.25" filter="blur(12px)"/>
+  <circle cx="760" cy="420" r="28" fill="#38bdf8" opacity="0.3" filter="blur(8px)"/>
+  <line x1="910" y1="100" x2="910" y2="580" stroke="#44403c" stroke-width="6"/>
+  <line x1="680" y1="340" x2="1140" y2="340" stroke="#44403c" stroke-width="6"/>
+
+  <!-- Warm Pendant Lamp over table -->
+  <circle cx="420" cy="240" r="200" fill="url(#lampGlow2)"/>
+  <path d="M420 0 L 420 150" stroke="#a8a29e" stroke-width="4"/>
+  <path d="M360 190 Q 420 120 480 190 Z" fill="#78716c"/>
+
   <!-- Wooden Table -->
-  <ellipse cx="450" cy="680" rx="420" ry="180" fill="#78350f" stroke="#451a03" stroke-width="12"/>
-  <!-- Two Coffee Cups with Steam -->
-  <!-- Cup 1 -->
-  <rect x="360" y="580" width="70" height="65" rx="10" fill="#fef3c7"/>
-  <ellipse cx="395" cy="580" rx="35" ry="10" fill="#78350f"/>
-  <path d="M 430 595 Q 450 610 430 625" fill="none" stroke="#fef3c7" stroke-width="6"/>
-  <!-- Cup 2 -->
-  <rect x="490" y="590" width="70" height="65" rx="10" fill="#fef3c7"/>
-  <ellipse cx="525" cy="590" rx="35" ry="10" fill="#78350f"/>
-  <path d="M 560 605 Q 580 620 560 635" fill="none" stroke="#fef3c7" stroke-width="6"/>
-  <!-- Steam curves -->
-  <path d="M 395 560 Q 380 520 400 480 T 395 430" fill="none" stroke="#fff" stroke-width="3" opacity="0.4"/>
-  <path d="M 525 570 Q 540 530 520 490 T 525 440" fill="none" stroke="#fff" stroke-width="3" opacity="0.4"/>
-  <!-- Title Badge -->
-  <rect x="50" y="50" width="280" height="60" rx="30" fill="rgba(15, 23, 42, 0.6)" stroke="rgba(253, 230, 138, 0.4)" stroke-width="1.5"/>
-  <text x="190" y="86" fill="#fef08a" font-family="serif" font-size="22" font-weight="300" text-anchor="middle" letter-spacing="3">COZY CAFE</text>
+  <ellipse cx="500" cy="740" rx="460" ry="190" fill="#78350f" stroke="#451a03" stroke-width="12"/>
+
+  <!-- Girlfriend sitting across table smiling warmly -->
+  <!-- Hair & cozy sweater silhouette -->
+  <path d="M 360 380 Q 430 330 500 370 Q 540 400 550 480 Q 560 560 580 660 L 280 660 Q 300 550 320 450 Z" fill="#442010"/>
+  <!-- Face in warm lamp glow -->
+  <ellipse cx="430" cy="450" rx="42" ry="50" fill="#fde68a"/>
+  <!-- Eyes, blush and cheerful smile -->
+  <ellipse cx="415" cy="445" rx="5" ry="3" fill="#29180c"/>
+  <ellipse cx="445" cy="445" rx="5" ry="3" fill="#29180c"/>
+  <ellipse cx="405" cy="465" rx="10" ry="6" fill="#f43f5e" opacity="0.4"/>
+  <ellipse cx="455" cy="465" rx="10" ry="6" fill="#f43f5e" opacity="0.4"/>
+  <path d="M 420 472 Q 430 482 440 472" stroke="#991b1b" stroke-width="3" fill="none"/>
+
+  <!-- Two Coffee Cups on Table with Steam -->
+  <!-- Cup 1 (Her Cup with Latte Art Heart) -->
+  <rect x="420" y="650" width="80" height="70" rx="12" fill="#fffbeb"/>
+  <ellipse cx="460" cy="650" rx="40" ry="12" fill="#78350f"/>
+  <path d="M 460 646 C 460 642, 452 638, 448 642 C 442 648, 452 656, 460 660 C 468 656, 478 648, 472 642 C 468 638, 460 642, 460 646 Z" fill="#fef3c7"/>
+  <path d="M 500 665 Q 525 680 500 695" fill="none" stroke="#fffbeb" stroke-width="7"/>
+
+  <!-- Steam -->
+  <path d="M 460 620 Q 440 570 470 520" fill="none" stroke="#fff" stroke-width="3" opacity="0.4"/>
+
+  <!-- Memory Card Border -->
+  <rect x="30" y="30" width="1140" height="840" rx="20" fill="none" stroke="rgba(253, 230, 138, 0.4)" stroke-width="2"/>
+  <rect x="42" y="42" width="1116" height="816" rx="14" fill="none" stroke="rgba(253, 230, 138, 0.2)" stroke-width="1"/>
+
+  <!-- Bottom Caption Badge -->
+  <rect x="360" y="780" width="480" height="70" rx="35" fill="rgba(15, 23, 42, 0.85)" stroke="rgba(253, 230, 138, 0.5)" stroke-width="1.5"/>
+  <text x="600" y="822" fill="#fef08a" font-family="serif" font-size="24" font-weight="300" text-anchor="middle" letter-spacing="3">COZY CAFE • ENDLESS CONVERSATIONS</text>
 </svg>
